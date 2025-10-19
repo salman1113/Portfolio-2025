@@ -63,7 +63,6 @@ function Navbar() {
                 <span className="font-semibold">Hire Me</span>
             </Link>
 
-            {/* Mobile Menu Button */}
             <button
                 className="md:hidden text-white text-2xl p-2 rounded-lg bg-white/10 backdrop-blur border border-white/20"
                 onClick={toggleMenu}
