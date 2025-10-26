@@ -8,7 +8,7 @@ const Projects = () => {
       title: 'E-Commerce Platform',
       description: 'Ecobay – Full E-Commerce Headset Website .Building Ecobay gave me hands-on experience in:🔹 React hooks & state management🔹 API integration with JSON Server🔹 Full CRUD operations (Admin Panel)🔹 Responsive UI/UX with Tailwind',
       technologies: ['React','Tailwind', 'JSON server'],
-      image: '/src/assets/1st.png',
+      image: 'https://media.licdn.com/dms/image/v2/D5622AQF9Z5DTFjHEBg/feedshare-shrink_2048_1536/B56ZkPNmFbIAAw-/0/1756896849402?e=1762992000&v=beta&t=IZjEm9w5kJNy8lg0rUBoXR1Stn33HjI0nvbWu2CgVoU',
       liveLink: 'https://project-ui-react.vercel.app/',
       githubLink: 'https://github.com/salman1113/Project-UI-react'
     },
@@ -16,7 +16,7 @@ const Projects = () => {
       title: '3D Cube',
       description: 'It started as a small experiment to explore more CSS stylings and turned into something really exciting.',
       technologies: ['React', 'CSS'],
-      image: '/src/assets/2nd.png',
+      image: 'c:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2025-09-14 011351.png',
       liveLink: 'https://cube-for-fun.vercel.app/',
       githubLink: 'https://github.com/salman1113/cube-for-fun'
     },
