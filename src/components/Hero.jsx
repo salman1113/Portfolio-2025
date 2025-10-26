@@ -210,7 +210,7 @@ const Hero = () => {
                             <div className="relative w-full h-full bg-black/60 backdrop-blur-md rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/20 transition-all duration-500 overflow-hidden">
                                 {/* Profile Image */}
                                 <motion.img
-                                    src=""
+                                    src="https://invisible-peach-vrskmapciv.edgeone.app/Gemini_Generated_Image_9usll99usll99usl.jpeg"
                                     alt="Muhammed Salman Faris"
                                     initial={{ scale: 1.1 }}
                                     animate={{ scale: 1 }}
