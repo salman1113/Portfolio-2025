@@ -210,7 +210,7 @@ const Hero = () => {
               <div className="relative w-full h-full bg-black/60 backdrop-blur-md rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/20 transition-all duration-500 overflow-hidden">
                 {/* Profile Image */}
                 <motion.img
-                  src="/src/assets/myimg.jpg"
+                  src="https://ibb.co/kgPxKzZH"
                   alt="Muhammed Salman Faris"
                   initial={{ scale: 1.1 }}
                   animate={{ scale: 1 }}
