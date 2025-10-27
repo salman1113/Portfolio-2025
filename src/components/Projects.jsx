@@ -16,7 +16,7 @@ const Projects = () => {
       title: '3D Cube',
       description: 'It started as a small experiment to explore more CSS stylings and turned into something really exciting.',
       technologies: ['React', 'CSS'],
-      image: 'https://worthy-bronze-a1hqzdgkaz.edgeone.app/Screenshot%202025-09-14%20011351.png',
+      image: '/2nd.png',
       liveLink: 'https://cube-for-fun.vercel.app/',
       githubLink: 'https://github.com/salman1113/cube-for-fun'
     },
