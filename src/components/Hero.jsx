@@ -130,26 +130,22 @@ const Hero = () => {
                 <div className="tech-decoration absolute bottom-4 right-4 md:bottom-8 md:right-8 w-6 h-6 md:w-8 md:h-8 border-b-2 border-r-2 border-purple-500/50 rounded-br-lg" />
 
                 {/* LEFT COLUMN: 'SALMAN' */}
-                <div ref={splitTextLeftRef} className="relative z-10 hidden md:flex flex-col justify-center items-start w-[30%] h-full pl-12 lg:pl-20 space-y-4">
-                    <p className="tech-decoration text-xs text-purple-400 tracking-[0.3em] font-sans font-medium mb-4">/// EST. 2025</p>
-                    <h1 className="tech-text-left text-6xl lg:text-8xl font-black text-white/90 tracking-tighter leading-none">
+                <div ref={splitTextLeftRef} className="relative z-10 flex flex-col justify-center items-center md:items-start w-full md:w-[30%] h-[20%] md:h-full pt-8 md:pt-0 md:pl-12 lg:pl-20 space-y-2 md:space-y-4 order-1 md:order-1">
+                    <p className="tech-decoration text-xs text-purple-400 tracking-[0.3em] font-sans font-medium mb-1 md:mb-4">/// EST. 2025</p>
+                    <h1 className="tech-text-left text-5xl sm:text-6xl lg:text-8xl font-black text-white/90 tracking-tighter leading-none text-center md:text-left">
                         SAL
-                        <br />
+                        <br className="hidden md:block" />
+                        <span className="md:hidden"> </span>
                         MAN
                     </h1>
-                    <div className="tech-text-left mt-8 flex items-center gap-3 opacity-60">
+                    <div className="tech-text-left mt-2 md:mt-8 flex items-center gap-3 opacity-60">
                         <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
-                        <span className="text-xs font-sans tracking-widest text-white">Python Full Stack Developer</span>
+                        <span className="text-[10px] md:text-xs font-sans tracking-widest text-white">Python Full Stack Developer</span>
                     </div>
                 </div>
 
-                {/* CENTER COLUMN: IMAGE + MOBILE TEXT */}
-                <div className="relative z-20 flex-1 h-full flex flex-col justify-end items-center relative">
-                    {/* Mobile Text (Visible only on small screens) */}
-                    <div className="md:hidden absolute top-[15%] w-full text-center z-0 space-y-2">
-                        <h1 className="mobile-tech-text text-5xl font-black text-white tracking-tight">SALMAN</h1>
-                        <h1 className="mobile-tech-text text-5xl font-black text-purple-500 tracking-tight">FARIS</h1>
-                    </div>
+                {/* CENTER COLUMN: IMAGE */}
+                <div className="relative z-20 flex-1 h-[50%] md:h-full flex flex-col justify-end items-center relative order-2 md:order-2">
 
                     {/* Tech Circle Behind Head */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[60%] border border-purple-500/20 rounded-full animate-[spin_20s_linear_infinite]" />
@@ -162,7 +158,7 @@ const Hero = () => {
                         alt="Salman Faris"
                         fetchPriority="high"
                         loading="eager"
-                        className="relative z-10 w-auto h-[75%] md:h-[90%] object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]"
+                        className="relative z-10 w-auto h-[100%] md:h-[90%] object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]"
                         style={{
                             maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
                             WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
@@ -171,34 +167,38 @@ const Hero = () => {
 
                     {/* Floating Icons */}
                     <div className="absolute inset-0 pointer-events-none z-20">
-                        <FaReact className="tech-icon absolute top-[30%] left-[20%] text-4xl text-blue-400/80 animate-bounce" style={{ animationDuration: '3s' }} />
-                        <FaPython className="tech-icon absolute top-[25%] right-[25%] text-4xl text-yellow-300/80 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }} />
-                        <SiDjango className="tech-icon absolute bottom-[30%] left-[25%] text-3xl text-green-500/80 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }} />
+                        <FaReact className="tech-icon absolute top-[30%] left-[10%] md:left-[20%] text-3xl md:text-4xl text-blue-400/80 animate-bounce" style={{ animationDuration: '3s' }} />
+                        <FaPython className="tech-icon absolute top-[25%] right-[10%] md:right-[25%] text-3xl md:text-4xl text-yellow-300/80 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+                        <SiDjango className="tech-icon absolute bottom-[30%] left-[15%] md:left-[25%] text-2xl md:text-3xl text-green-500/80 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }} />
                     </div>
 
-                    {/* Floating Badge (Bottom Center) */}
-                    <div className="absolute bottom-6 z-30 slide-up-fade">
-                        <MagneticButton className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-3 rounded-full text-sm font-sans tracking-widest hover:bg-white hover:text-black transition-all">
-                            VIEW PROJECTS
-                        </MagneticButton>
-                    </div>
+
                 </div>
 
                 {/* RIGHT COLUMN: 'FARIS' */}
-                <div ref={splitTextRightRef} className="relative z-10 hidden md:flex flex-col justify-center items-end w-[30%] h-full pr-12 lg:pr-20 space-y-4">
-                    <p className="tech-decoration text-xs text-right text-gray-500 tracking-[0.3em] font-sans font-medium mb-4">DEV_MODE: ACTIVE</p>
-                    <h1 className="tech-text-right text-6xl lg:text-8xl font-black text-white/90 tracking-tighter leading-none text-right">
+                <div ref={splitTextRightRef} className="relative z-10 flex flex-col justify-start md:justify-center items-center md:items-end w-full md:w-[30%] h-[20%] md:h-full pb-8 md:pb-0 md:pr-12 lg:pr-20 space-y-2 md:space-y-4 order-3 md:order-3">
+                    <p className="tech-decoration text-xs text-right text-gray-500 tracking-[0.3em] font-sans font-medium mb-1 md:mb-4 hidden md:block">DEV_MODE: ACTIVE</p>
+                    <h1 className="tech-text-right text-5xl sm:text-6xl lg:text-8xl font-black text-white/90 tracking-tighter leading-none text-center md:text-right">
                         FAR
-                        <br />
+                        <br className="hidden md:block" />
+                        <span className="md:hidden"> </span>
                         IS
                     </h1>
-                    <div className="tech-text-right mt-8 flex flex-col items-end gap-2">
+                    <div className="tech-text-right mt-2 md:mt-8 flex flex-col items-end gap-2">
                         <div className="flex gap-4 text-gray-400">
                             <a href="#" className="hover:text-purple-400 transition-colors"><FaGithub size={20} /></a>
                             <a href="#" className="hover:text-purple-400 transition-colors"><FaLinkedin size={20} /></a>
                         </div>
                     </div>
                 </div>
+
+                {/* GLOBAL VIEW PROJECTS BUTTON (Bottom Center) */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 slide-up-fade w-max">
+                    <MagneticButton className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 md:px-8 py-2 md:py-3 rounded-full text-xs md:text-sm font-sans tracking-widest hover:bg-white hover:text-black transition-all shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                        VIEW PROJECTS
+                    </MagneticButton>
+                </div>
+
             </div>
         </section>
     );

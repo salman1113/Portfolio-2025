@@ -105,7 +105,7 @@ const Skills = () => {
       >
         {/* Fixed Heading Mobile Adjustments - Moved down to avoid Navbar overlap */}
         <div className="absolute top-32 md:top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none w-full text-center">
-          <h2 className="text-2xl md:text-3xl font-bold font-display uppercase tracking-widest text-white/40">Skills & <br className="md:hidden" />Capabilities</h2>
+          <h2 className="text-2xl md:text-3xl font-bold font-display uppercase tracking-widest text-white">Skills & <br className="md:hidden" />Capabilities</h2>
         </div>
 
         {skillCategories.map((cat) => (
