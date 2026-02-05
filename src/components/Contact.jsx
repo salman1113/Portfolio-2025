@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaPaperPlane, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaPaperPlane, FaEnvelope, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
+import ScrollFloat from './ScrollFloat';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -21,11 +22,11 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     console.log('Form submitted:', formData);
-    
+
     // Reset form
     setFormData({ name: '', email: '', message: '' });
     setIsSubmitting(false);
@@ -35,16 +36,21 @@ const Contact = () => {
     {
       icon: FaEnvelope,
       text: 'mrsalmanxzs@gmail.com',
-      href: 'mrsalmanxzs@gmail.com'
+      href: 'mailto:mrsalmanxzs@gmail.com'
     },
     {
-      icon: FaPhone,
-      text: '+91 9048752402',
-      href: 'tel:+919048752402'
+      icon: FaLinkedin,
+      text: 'LinkedIn',
+      href: '#'
     },
     {
-      icon: FaMapMarkerAlt,
-      text: 'Kerala, India',
+      icon: FaGithub,
+      text: 'GitHub',
+      href: '#'
+    },
+    {
+      icon: FaInstagram,
+      text: 'Instagram',
       href: '#'
     }
   ];
@@ -83,9 +89,17 @@ const Contact = () => {
           viewport={{ once: true, margin: "-50px" }}
           className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-            Get In Touch
-          </h2>
+          <ScrollFloat
+            animationDuration={1}
+            ease='back.inOut(2)'
+            scrollStart='center bottom+=50%'
+            scrollEnd='bottom bottom-=40%'
+            stagger={0.03}
+            containerClassName="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-white text-center"
+            textClassName=""
+          >
+            Ready to launch your next project?
+          </ScrollFloat>
           <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
             Ready to bring your ideas to life? Let's create something amazing together!
           </p>
@@ -104,7 +118,7 @@ const Contact = () => {
             className="space-y-4 sm:space-y-6"
           >
             <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Let's Connect</h3>
-            
+
             {contactInfo.map((item, index) => (
               <motion.a
                 key={index}
@@ -121,7 +135,7 @@ const Contact = () => {
                     <item.icon className="text-white text-lg sm:text-xl" />
                   </div>
                 </div>
-                
+
                 <span className="text-gray-300 group-hover:text-white transition-colors duration-300 text-sm sm:text-base">
                   {item.text}
                 </span>
@@ -149,7 +163,7 @@ const Contact = () => {
           >
             {/* Liquid Glass Background */}
             <div className="absolute -inset-3 sm:-inset-4 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl blur-xl opacity-50"></div>
-            
+
             <form
               onSubmit={handleSubmit}
               className="relative bg-black/40 backdrop-blur-xl rounded-2xl p-5 sm:p-6 lg:p-8 border border-white/10"
@@ -215,12 +229,12 @@ const Contact = () => {
                 >
                   {/* Liquid Glass Background */}
                   <div className="absolute inset-0 bg-white/20 backdrop-blur-lg rounded-lg blur-lg group-hover:blur-xl transition-all duration-500"></div>
-                  
+
                   {/* Main Button */}
                   <div className="relative bg-black/80 backdrop-blur-md border border-white/20 rounded-lg px-4 sm:px-6 py-3 sm:py-4 group-hover:border-white/30 transition-all duration-500 overflow-hidden">
                     {/* Shimmer Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                    
+
                     <div className="relative flex items-center justify-center space-x-2">
                       {isSubmitting ? (
                         <motion.div
