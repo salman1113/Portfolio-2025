@@ -103,9 +103,9 @@ const Skills = () => {
         className="flex h-[100dvh] items-center overflow-x-hidden min-h-[100dvh]"
         style={{ width: `${skillCategories.length * 100}%` }}
       >
-        {/* Fixed Heading Mobile Adjustments - Move down slightly or make relative if overlapping on small screens */}
-        <div className="absolute top-20 md:top-12 left-1/2 -translate-x-1/2 z-20 pointer-events-none mix-blend-difference w-full text-center">
-          <h2 className="text-xl md:text-3xl font-bold font-display uppercase tracking-widest text-white/50">Skills & <br className="md:hidden" />Capabilities</h2>
+        {/* Fixed Heading Mobile Adjustments - Moved down to avoid Navbar overlap */}
+        <div className="absolute top-32 md:top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none w-full text-center">
+          <h2 className="text-2xl md:text-3xl font-bold font-display uppercase tracking-widest text-white/40">Skills & <br className="md:hidden" />Capabilities</h2>
         </div>
 
         {skillCategories.map((cat) => (
