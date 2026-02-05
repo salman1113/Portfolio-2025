@@ -81,8 +81,16 @@ const Projects = () => {
               {/* Image Container */}
               <div className="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl">
                 <img
-                  src={project.image}
+                  src={project.image.replace("w=1000", "w=800")} // Default fallback
+                  srcSet={`
+                    ${project.image.replace("w=1000", "w=400")} 400w,
+                    ${project.image.replace("w=1000", "w=800")} 800w,
+                    ${project.image.replace("w=1000", "w=1200")} 1200w
+                  `}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   alt={project.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-[40vh] md:h-[50vh] object-cover transition-transform hover:scale-105 duration-700"
                 />
               </div>

@@ -160,6 +160,8 @@ const Hero = () => {
                         ref={centerImageRef}
                         src={profileImage}
                         alt="Salman Faris"
+                        fetchPriority="high"
+                        loading="eager"
                         className="relative z-10 w-auto h-[75%] md:h-[90%] object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]"
                         style={{
                             maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
