@@ -104,8 +104,8 @@ const Skills = () => {
         style={{ width: `${skillCategories.length * 100}%` }}
       >
         {/* Fixed Heading Mobile Adjustments - Move down slightly or make relative if overlapping on small screens */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-20 md:top-12 z-20 pointer-events-none mix-blend-difference w-full text-center md:text-left">
-          <h2 className="text-xl md:text-3xl font-bold font-display uppercase tracking-widest text-white/50">Skills & <br />Capabilities</h2>
+        <div className="absolute top-20 md:top-12 left-1/2 -translate-x-1/2 z-20 pointer-events-none mix-blend-difference w-full text-center">
+          <h2 className="text-xl md:text-3xl font-bold font-display uppercase tracking-widest text-white/50">Skills & <br className="md:hidden" />Capabilities</h2>
         </div>
 
         {skillCategories.map((cat) => (
