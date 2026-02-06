@@ -19,8 +19,13 @@ function SplashCursor({
     const canvasRef = useRef(null);
 
     useEffect(() => {
+        // DISABLE ON MOBILE: Check if primary input is touch
+        const isTouch = window.matchMedia("(pointer: coarse)").matches;
+        if (isTouch) return;
+
         const canvas = canvasRef.current;
         if (!canvas) return;
+
 
         function pointerPrototype() {
             this.id = -1;

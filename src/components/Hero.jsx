@@ -78,7 +78,11 @@ const Hero = () => {
                 });
             };
 
-            window.addEventListener("mousemove", handleMouseMove);
+            // Only add mouse move listener if not on touch device
+            if (!window.matchMedia("(pointer: coarse)").matches) {
+                window.addEventListener("mousemove", handleMouseMove);
+            }
+
             return () => window.removeEventListener("mousemove", handleMouseMove);
 
         }, containerRef);
