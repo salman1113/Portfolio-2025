@@ -6,27 +6,27 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { 
-      icon: FaGithub, 
-      href: '#', 
+    {
+      icon: FaGithub,
+      href: 'https://github.com/salman1113',
       label: 'GitHub',
       color: 'text-gray-400 hover:text-white'
     },
-    { 
-      icon: FaLinkedin, 
-      href: '#', 
+    {
+      icon: FaLinkedin,
+      href: 'https://www.linkedin.com/in/muhammed-salman-faris-a5792a361/',
       label: 'LinkedIn',
       color: 'text-blue-400 hover:text-blue-300'
     },
-    { 
-      icon: FaInstagram, 
-      href: '#', 
+    {
+      icon: FaInstagram,
+      href: 'https://www.instagram.com/sallllmaaaaan/',
       label: 'Instagram',
       color: 'text-pink-400 hover:text-pink-300'
     },
-    { 
-      icon: FaEnvelope, 
-      href: '#', 
+    {
+      icon: FaEnvelope,
+      href: 'mailto:mrsalmanxzs@gmail.com',
       label: 'Email',
       color: 'text-red-400 hover:text-red-300'
     },

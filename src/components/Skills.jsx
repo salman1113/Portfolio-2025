@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollFloat from './ScrollFloat';
 import Folder from './Folder';
-import { FaReact, FaPython, FaGitAlt, FaGithub, FaDatabase } from 'react-icons/fa';
+import { FaReact, FaPython, FaGitAlt, FaGithub, FaDatabase, FaCode } from 'react-icons/fa';
 import { SiRedux, SiTailwindcss, SiDjango, SiPostgresql, SiPostman, SiDocker, SiBootstrap } from 'react-icons/si';
 import { VscVscode } from "react-icons/vsc";
 import { BiLogoPostgresql } from "react-icons/bi";
@@ -18,24 +18,26 @@ const Skills = () => {
   const skillCategories = [
     {
       id: 1,
-      name: "Frontend",
-      color: "#a855f7", // Purple
-      skills: [
-        { name: "React", icon: FaReact, color: "#61DAFB" },
-        { name: "Redux", icon: SiRedux, color: "#764ABC" },
-        { name: "Tailwind", icon: SiTailwindcss, color: "#38B2AC" },
-        { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
-      ],
-    },
-    {
-      id: 2,
       name: "Backend",
       color: "#22c55e", // Green
       skills: [
         { name: "Python", icon: FaPython, color: "#FFD43B" },
         { name: "Django", icon: SiDjango, color: "#092E20" },
         { name: "DRF", icon: SiDjango, color: "#A30000" },
-        { name: "ORM", icon: FaDatabase, color: "#FFFFFF" },
+        { name: "Celery", icon: FaDatabase, color: "#37814A" }, // Placeholder Icon
+        { name: "REST APIs", icon: FaCode, color: "#FFFFFF" },
+      ],
+    },
+    {
+      id: 2,
+      name: "Frontend",
+      color: "#a855f7", // Purple
+      skills: [
+        { name: "React.js", icon: FaReact, color: "#61DAFB" },
+        { name: "Redux", icon: SiRedux, color: "#764ABC" },
+        { name: "Tailwind", icon: SiTailwindcss, color: "#38B2AC" },
+        { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
+        { name: "Axios", icon: FaCode, color: "#5A29E4" },
       ],
     },
     {
@@ -43,23 +45,33 @@ const Skills = () => {
       name: "Database",
       color: "#3b82f6", // Blue
       skills: [
-        { name: "SQL", icon: customPostgre, color: "#336791" },
         { name: "PostgreSQL", icon: SiPostgresql, color: "#336791" },
+        { name: "SQLite", icon: FaDatabase, color: "#003B57" },
+        { name: "Redis", icon: FaDatabase, color: "#DC382D" },
       ],
     },
     {
       id: 4,
-      name: "DevOps",
+      name: "Cloud & DevOps",
       color: "#f97316", // Orange
       skills: [
-        { name: "Git", icon: FaGitAlt, color: "#F05032" },
-        { name: "GitHub", icon: FaGithub, color: "#000000" },
-        { name: "Postman", icon: SiPostman, color: "#FF6C37" },
+        { name: "AWS", icon: FaCode, color: "#FF9900" },
         { name: "Docker", icon: SiDocker, color: "#2496ED" },
-        { name: "VS Code", icon: VscVscode, color: "#007ACC" },
+        { name: "Git", icon: FaGitAlt, color: "#F05032" },
+        { name: "Vercel", icon: VscVscode, color: "#000000" }, // Use placeholder
+        { name: "CI/CD", icon: FaGithub, color: "#FFFFFF" },
       ],
     },
   ];
+
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize(); // Initial check
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -81,9 +93,6 @@ const Skills = () => {
             ease: "power1.inOut"
           },
           start: "top top",
-          // Reduce the scroll distance slightly for mobile to make it feel more responsive? 
-          // Actually, standard logic is usually strictly width based. 
-          // Let's ensure we use specific logic.
           end: () => "+=" + wrapperRef.current.offsetWidth,
           invalidateOnRefresh: true,
           anticipatePin: 1, // Helps prevents jitter on start
@@ -122,7 +131,7 @@ const Skills = () => {
               {/* FOLDER COMPONENT */}
               <div className="relative h-[250px] md:h-[300px] flex items-end justify-center w-full">
                 <Folder
-                  size={window.innerWidth < 768 ? 2 : 3} // Reduced mobile size slightly to fit content better
+                  size={isMobile ? 2 : 3} // Dynamic sizing based on listener
                   color={cat.color}
                   items={cat.skills.map((skill, idx) => (
                     <div key={idx} className="flex flex-col items-center justify-center h-full w-full p-1 text-center group-hover:scale-105 transition-transform">

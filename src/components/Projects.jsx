@@ -1,130 +1,174 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import ScrollFloat from "./ScrollFloat";
+import SkeletonLoader from "./SkeletonLoader";
+
+// Import project images (User to provided assets)
+import echoBayImg from "../assets/echobay.png";
+import courseImg from "../assets/coursestore.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
     id: 1,
-    title: "Ecobay",
-    category: "E-commerce Platform",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1000",
-    description: "A fully functional shopping cart and product showcase for headsets. Built with React, Tailwind, and JSON Server/Django.",
-    tech: ["React", "Tailwind", "Django"],
+    title: "Data Insights Agent",
+    category: "AI Analytics Platform",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+    description: "Spearheaded an AI-powered analytics platform using FastAPI and React 19. Enables non-technical users to query datasets via natural language (LLM), reducing manual analysis time by 90%. Architecture includes high-performance Pandas pipelines and automated PDF reporting (Jinja2).",
+    tech: ["FastAPI", "React 19", "LLM Integration", "Pandas", "Recharts"],
     links: { github: "#", live: "#" }
   },
   {
     id: 2,
-    title: "TaskMaster API",
-    category: "Backend System",
-    image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=1000",
-    description: "Robust task management system with authentication and CRUD operations. Powered by Python, Django, and DRF.",
-    tech: ["Python", "Django", "DRF"],
-    links: { github: "#", live: "#" }
+    title: "Echobay",
+    category: "Full Stack E-Commerce",
+    image: echoBayImg,
+    description: "Architected a decoupled application using DRF and React.js, hosted on AWS EC2 with Nginx. Unified secure authentication (Google OAuth 2.0 + JWT) and optimized reverse proxies for 99.9% uptime. Handles 500+ daily requests with robust CI/CD via Vercel.",
+    tech: ["React", "Django REST", "AWS EC2", "Nginx", "Channels", "Celery", "PSQL"],
+    links: { github: "https://github.com/salman1113/Echobay-Ecommerce_backend.git", live: "https://echobay.vercel.app/" }
   },
   {
     id: 3,
-    title: "Coming Soon",
-    category: "Future Project",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000",
-    description: "More exciting projects are in the works. Stay tuned for updates on new full-stack applications.",
-    tech: [],
-    links: { github: "#", live: "#" }
+    title: " Learnest Course Platform",
+    category: "LMS Backend API",
+    image: courseImg,
+    description: "Formulated a scalable LMS backend supporting 500+ concurrent users. Enforced robust RBAC via JWT for Admins, Instructors, and Students. Secured video delivery with Signed URLs and optimized Django filtering to reduce API payload size by 50%.",
+    tech: ["Django", "PostgreSQL", "RBAC", "Docker", "Stripe"],
+    links: { github:"https://github.com/salman1113/Learnest-AI-Backend.git", live: "#" }
   },
 ];
 
-const Projects = () => {
-  const containerRef = useRef(null);
-  const wrapperRef = useRef(null);
+const ProjectCard = ({ project, index }) => {
+  const isEven = index % 2 === 0;
+  const cardRef = useRef(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.refresh();
-
-      // Horizontal Scroll - GLOBAL
-      const sections = gsap.utils.toArray(".project-card");
-
-      gsap.to(sections, {
-        xPercent: -100 * (sections.length - 1),
-        ease: "none",
+    // Reveal Animation on Scroll
+    gsap.fromTo(cardRef.current,
+      { y: 100, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
         scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 1,
-          start: "top top",
-          end: () => "+=" + wrapperRef.current.offsetWidth,
-          invalidateOnRefresh: true,
-        },
-      });
-
-    }, containerRef);
-
-    return () => ctx.revert();
+          trigger: cardRef.current,
+          start: "top bottom-=10%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
   }, []);
 
   return (
-    <section id="projects" ref={containerRef} className="relative bg-black text-white overflow-hidden">
+    <div ref={cardRef} className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-12 md:gap-24 items-center py-20 px-4 max-w-7xl mx-auto w-full`}>
 
-      {/* UNIFIED SCROLL VIEW (Horizontal on all devices) */}
-      <div
-        ref={wrapperRef}
-        className="flex h-screen items-center overflow-x-hidden min-h-screen"
-        style={{ width: `${projects.length * 100}%` }}
-      >
-        {projects.map((project) => (
-          <div key={project.id} className="project-card w-screen h-screen flex items-center justify-center p-4 md:p-10 flex-shrink-0 border-r border-gray-900/50">
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 max-w-6xl w-full items-center">
-
-              {/* Image Container */}
-              <div className="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-2xl">
-                <img
-                  src={project.image.replace("w=1000", "w=800")} // Default fallback
-                  srcSet={`
-                    ${project.image.replace("w=1000", "w=400")} 400w,
-                    ${project.image.replace("w=1000", "w=800")} 800w,
-                    ${project.image.replace("w=1000", "w=1200")} 1200w
-                  `}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  alt={project.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-[40vh] md:h-[50vh] object-cover transition-transform hover:scale-105 duration-700"
-                />
-              </div>
-
-              {/* Text Content */}
-              <div className="w-full md:w-1/2 space-y-4 md:space-y-6 text-center md:text-left">
-                <span className="text-purple-400 tracking-widest uppercase text-xs md:text-sm font-semibold">{project.category}</span>
-                <h3 className="text-4xl md:text-7xl font-bold font-display">{project.title}</h3>
-                <p className="text-gray-400 text-sm md:text-lg leading-relaxed max-w-md mx-auto md:mx-0">{project.description}</p>
-
-                {/* Tech Stack Pills (New) */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-2 pt-2">
-                  {project.tech.map((tech, i) => (
-                    <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-300">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex justify-center md:justify-start gap-4 pt-4">
-                  <button className="flex items-center gap-2 px-6 py-3 border border-white rounded-full hover:bg-white hover:text-black transition-colors clickable text-sm md:text-base">
-                    <FaGithub /> Code
-                  </button>
-                  <button className="flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full hover:bg-gray-200 transition-colors clickable text-sm md:text-base">
-                    <FaExternalLinkAlt /> Live Demo
-                  </button>
-                </div>
-              </div>
-
+      {/* IMAGE SIDE (Browser Mockup) */}
+      <div className="w-full md:w-3/5 group cursor-pointer perspective-1000">
+        <div className="relative transform transition-transform duration-700 group-hover:rotate-x-2 group-hover:scale-[1.02]">
+          {/* Browser Header Mockup */}
+          <div className="h-8 bg-[#1e1e1e] rounded-t-xl flex items-center px-4 gap-2 border border-white/10 border-b-0">
+            <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+            <div className="flex-1 text-center text-[10px] text-gray-500 font-mono hidden sm:block">
+              {project.title.toLowerCase().replace(/\s/g, '')}.app
             </div>
           </div>
-        ))}
+
+          {/* Image Container */}
+          <div className="relative overflow-hidden rounded-b-xl border border-white/10 border-t-0 bg-gray-900 aspect-video">
+
+            {!imageLoaded && (
+              <SkeletonLoader type="image" className="absolute inset-0 z-20" />
+            )}
+
+            <img
+              src={project.image}
+              alt={project.title}
+              onLoad={() => setImageLoaded(true)}
+              className={`w-full h-full object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'} group-hover:scale-105 transition-transform duration-700`}
+            />
+
+            {/* Overlay on Hover */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-30">
+              <button className="px-6 py-2 bg-[var(--color-accent)] text-black font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                View Case Study
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* TEXT SIDE */}
+      <div className="w-full md:w-2/5 space-y-6">
+        <div className="flex items-center gap-4">
+          <span className="text-[var(--color-accent)] font-mono text-sm tracking-widest uppercase">0{index + 1} // {project.category}</span>
+          <div className="h-[1px] flex-1 bg-white/10"></div>
+        </div>
+
+        <h3 className="text-4xl md:text-5xl font-black text-white leading-tight">
+          {project.title}
+        </h3>
+
+        <p className="text-gray-400 text-lg leading-relaxed">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {project.tech.map((t, i) => (
+            <span key={i} className="px-3 py-1 text-xs border border-white/10 rounded text-gray-400 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors cursor-default">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex gap-6 pt-4">
+          <a href={project.links.github} className="text-white hover:text-[var(--color-accent)] transition-colors flex items-center gap-2 underline underline-offset-8 decoration-white/30 decoration-1 hover:decoration-[var(--color-accent)]">
+            <FaGithub /> GitHub
+          </a>
+          <a href={project.links.live} className="text-white hover:text-[var(--color-accent)] transition-colors flex items-center gap-2 underline underline-offset-8 decoration-white/30 decoration-1 hover:decoration-[var(--color-accent)]">
+            <FaExternalLinkAlt /> Live Demo
+          </a>
+        </div>
+      </div>
+
+    </div>
+  );
+};
+
+const Projects = () => {
+  return (
+    <section id="projects" className="relative w-full bg-[#0a0a0a] py-20 md:py-32 overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--color-accent)] opacity-[0.03] blur-[150px] pointer-events-none rounded-full" />
+
+      <div className="container mx-auto px-6">
+        <div className="mb-24 md:mb-32">
+          <h2 className="text-6xl md:text-8xl font-black text-white/5 tracking-tighter absolute left-4 select-none pointer-events-none">
+            WORK
+          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white relative z-10 pl-4 md:pl-12 border-l-4 border-[var(--color-accent)]">
+            Selected <br /> Projects
+          </h2>
+        </div>
+
+        <div className="flex flex-col gap-12 md:gap-0">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-24">
+          <button className="px-8 py-4 border border-white/20 text-white rounded-full hover:bg-[var(--color-accent)] hover:text-black hover:border-transparent transition-all duration-300 font-bold uppercase tracking-widest text-sm">
+            View All Archives
+          </button>
+        </div>
+
+      </div>
     </section>
   );
 };

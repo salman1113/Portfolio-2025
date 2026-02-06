@@ -43,7 +43,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-black min-h-screen w-full text-white selection:bg-purple-500 selection:text-white overflow-x-hidden">
+    <div className="bg-[var(--color-dark-bg)] min-h-screen w-full text-white overflow-x-hidden">
 
       <SplashCursor />
       <Header />

@@ -67,14 +67,15 @@ const NavBar = () => {
                         <AnimatePresence>
                             {hoveredIndex === index && (
                                 <motion.div
-                                    initial={{ opacity: 0, y: -10, scale: 0.8 }}
+                                    initial={{ opacity: 0, y: 10, scale: 0.8 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    exit={{ opacity: 0, y: -10, scale: 0.8 }}
+                                    exit={{ opacity: 0, y: 10, scale: 0.8 }}
                                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                                    className="absolute left-1/2 -translate-x-1/2 -top-10 px-3 py-1 bg-white text-black text-xs font-bold rounded-lg whitespace-nowrap z-50 pointer-events-none font-sans"
+                                    className="absolute left-1/2 -translate-x-1/2 top-full mt-4 px-3 py-1 bg-white text-black text-xs font-bold rounded-lg whitespace-nowrap z-50 pointer-events-none font-sans"
                                 >
                                     {item.name}
-                                    <div className="absolute bottom-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-white rotate-45" />
+                                    {/* Arrow pointing up */}
+                                    <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-white rotate-45" />
                                 </motion.div>
                             )}
                         </AnimatePresence>

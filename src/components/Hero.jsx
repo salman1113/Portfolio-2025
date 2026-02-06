@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MagneticButton from "./MagneticButton";
-import { FaGithub, FaLinkedin, FaInstagram, FaReact, FaPython } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaReact, FaPython, FaDownload } from "react-icons/fa";
 import { SiJavascript, SiTailwindcss, SiDjango } from "react-icons/si";
 import profileImage from "../assets/myimage.PNG";
 
@@ -10,21 +10,17 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
     const containerRef = useRef(null);
-    const splitTextLeftRef = useRef(null);
-    const splitTextRightRef = useRef(null);
-    const centerImageRef = useRef(null);
     const cardRef = useRef(null);
+    const centerImageRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline();
 
             // 1. Initial State
-            gsap.set(cardRef.current, { scale: 0.95, opacity: 0 });
-            gsap.set(".tech-text-left", { x: -50, opacity: 0 });
-            gsap.set(".tech-text-right", { x: 50, opacity: 0 });
-            gsap.set(centerImageRef.current, { y: 100, opacity: 0 });
-            gsap.set(".tech-decoration", { scale: 0, opacity: 0 });
+            gsap.set(cardRef.current, { scale: 0.98, opacity: 0 });
+            gsap.set(".hero-text", { y: 20, opacity: 0 });
+            gsap.set(centerImageRef.current, { scale: 0.9, opacity: 0 });
 
             // 2. Entrance Animation
             tl.to(cardRef.current, {
@@ -34,64 +30,50 @@ const Hero = () => {
                 ease: "power3.out"
             })
                 .to(centerImageRef.current, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    ease: "power4.out"
-                }, "-=0.2")
-                // Split Text Reveal
-                .to(".tech-text-left", {
-                    x: 0,
-                    opacity: 1,
-                    stagger: 0.1,
-                    duration: 0.8,
-                    ease: "power2.out"
-                }, "-=0.6")
-                .to(".tech-text-right", {
-                    x: 0,
-                    opacity: 1,
-                    stagger: 0.1,
-                    duration: 0.8,
-                    ease: "power2.out"
-                }, "-=0.6")
-                // Tech Decor
-                .to(".tech-decoration", {
                     scale: 1,
                     opacity: 1,
-                    stagger: {
-                        amount: 0.5,
-                        from: "random"
-                    },
-                    duration: 0.6,
-                    ease: "back.out(1.7)"
-                }, "-=0.4");
+                    duration: 1,
+                    ease: "power3.out"
+                }, "-=0.8")
+                .to(".hero-text", {
+                    y: 0,
+                    opacity: 1,
+                    stagger: 0.1,
+                    duration: 0.8,
+                    ease: "power2.out"
+                }, "-=0.6");
 
-            // 3. Mouse Interaction (3D Card Tilt)
+            // 3. Simple Mouse Interaction (Parallax)
             const handleMouseMove = (e) => {
                 const { clientX, clientY } = e;
                 const { innerWidth, innerHeight } = window;
-                const x = (clientX / innerWidth - 0.5) * 10;
-                const y = (clientY / innerHeight - 0.5) * 10;
 
+                // Mapped range -1 to 1
+                const xMap = (clientX / innerWidth - 0.5) * 2;
+                const yMap = (clientY / innerHeight - 0.5) * 2;
+
+                // Subtle Tilt on Card
                 gsap.to(cardRef.current, {
-                    rotateY: x,
-                    rotateX: -y,
+                    rotateY: xMap * 2, // Very subtle tilt
+                    rotateX: -yMap * 2,
                     transformPerspective: 1000,
-                    duration: 1,
-                    ease: "power2.out"
+                    duration: 0.5,
+                    ease: "power1.out"
                 });
 
-                // Parallax Internal Elements
+                // Parallax for Image (Moves opposite to cursor slightly)
                 gsap.to(centerImageRef.current, {
-                    x: x * 0.5,
-                    y: y * 0.5,
-                    duration: 1,
-                    ease: "power2.out"
+                    x: -xMap * 15,
+                    y: -yMap * 15,
+                    duration: 0.5,
+                    ease: "power1.out"
                 });
+
+                // Tech Icons Reactivity ("Anti-Gravity" only on move)
                 gsap.to(".tech-icon", {
-                    x: x * 1.5,
-                    y: y * 1.5,
-                    duration: 1,
+                    x: (index) => xMap * (20 + index * 10),
+                    y: (index) => yMap * (20 + index * 10),
+                    duration: 0.8,
                     ease: "power2.out"
                 });
             };
@@ -108,97 +90,114 @@ const Hero = () => {
         <section
             id="home"
             ref={containerRef}
-            className="relative min-h-screen w-full flex items-center justify-center bg-black p-4 md:p-8"
+            className="relative w-full flex flex-col items-center justify-start bg-[#0a0a0a] pt-24 md:pt-32 pb-4"
         >
-            {/* Ambient Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-purple-900/20 blur-[150px] rounded-full pointer-events-none" />
+            {/* Soft Ambient Background Glow (Green Accent) */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[50%] bg-[var(--color-accent)] opacity-[0.05] blur-[120px] rounded-full pointer-events-none" />
 
-            {/* MAIN TECH CARD CONTAINER */}
+            {/* MAIN HERO CARD (Reduced Height for 6-second rule) */}
             <div
                 ref={cardRef}
-                className="relative w-full max-w-[90rem] h-[85vh] md:h-[80vh] bg-[#0c0c0c]/80 backdrop-blur-2xl rounded-[3rem] border border-white/10 overflow-hidden shadow-2xl flex flex-col md:flex-row"
+                className="relative w-[95%] max-w-[90rem] h-[65vh] md:h-[70vh] bg-[#121212] rounded-[2rem] border border-white/5 overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between p-6 md:p-12 transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(57,255,20,0.1)]"
             >
-                {/* Decorative Grid Lines */}
-                <div className="absolute inset-0 pointer-events-none opacity-20"
-                    style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+                {/* Subtle Grid Pattern */}
+                <div className="absolute inset-0 pointer-events-none opacity-10"
+                    style={{ backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px)', backgroundSize: '24px 24px' }}
                 />
 
-                {/* Decoration: Corner Brackets */}
-                <div className="tech-decoration absolute top-4 left-4 md:top-8 md:left-8 w-6 h-6 md:w-8 md:h-8 border-t-2 border-l-2 border-purple-500/50 rounded-tl-lg" />
-                <div className="tech-decoration absolute top-4 right-4 md:top-8 md:right-8 w-6 h-6 md:w-8 md:h-8 border-t-2 border-r-2 border-purple-500/50 rounded-tr-lg" />
-                <div className="tech-decoration absolute bottom-4 left-4 md:bottom-8 md:left-8 w-6 h-6 md:w-8 md:h-8 border-b-2 border-l-2 border-purple-500/50 rounded-bl-lg" />
-                <div className="tech-decoration absolute bottom-4 right-4 md:bottom-8 md:right-8 w-6 h-6 md:w-8 md:h-8 border-b-2 border-r-2 border-purple-500/50 rounded-br-lg" />
+                {/* LEFT CONTENT: Name & Role */}
+                <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left space-y-4 md:w-1/3 order-2 md:order-1 mt-4 md:mt-0">
+                    <div className="hero-text overflow-hidden">
+                        <p className="text-[10px] md:text-xs text-gray-500 tracking-[0.4em] font-sans font-bold mb-2 uppercase">
+                            /// Full Stack Developer
+                        </p>
+                    </div>
 
-                {/* LEFT COLUMN: 'SALMAN' */}
-                <div ref={splitTextLeftRef} className="relative z-10 flex flex-col justify-center items-center md:items-start w-full md:w-[30%] h-[20%] md:h-full pt-8 md:pt-0 md:pl-12 lg:pl-20 space-y-2 md:space-y-4 order-1 md:order-1">
-                    <p className="tech-decoration text-xs text-purple-400 tracking-[0.3em] font-sans font-medium mb-1 md:mb-4">/// EST. 2025</p>
-                    <h1 className="tech-text-left text-5xl sm:text-6xl lg:text-8xl font-black text-white/90 tracking-tighter leading-none text-center md:text-left">
-                        SAL
+                    {/* TYPOGRAPHY: SALMAN */}
+                    <h1 className="hero-text text-5xl sm:text-7xl lg:text-9xl font-black text-white md:text-white/50 tracking-tighter leading-[0.9] md:leading-[0.8] mix-blend-difference z-20 whitespace-nowrap md:whitespace-normal">
+                        SAL<span className="md:hidden">MAN</span>
                         <br className="hidden md:block" />
-                        <span className="md:hidden"> </span>
-                        MAN
+                        <span className="hidden md:inline">MAN</span>
                     </h1>
-                    <div className="tech-text-left mt-2 md:mt-8 flex items-center gap-3 opacity-60">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
-                        <span className="text-[10px] md:text-xs font-sans tracking-widest text-white">Python Full Stack Developer</span>
+
+                    {/* MOBILE ONLY 'FARIS' (Placed above 'Available for Hire') */}
+                    <h1
+                        className="hero-text block md:hidden text-5xl sm:text-7xl font-black text-transparent tracking-tighter leading-[0.9] -mt-2 z-10 opacity-80 whitespace-nowrap mb-4"
+                        style={{ WebkitTextStroke: "1px rgba(255,255,255,0.5)" }}
+                    >
+                        FARIS
+                    </h1>
+
+                    <div className="hero-text flex items-center gap-4 text-gray-400 mt-2">
+                        <div className="flex gap-4">
+                            <a href="#" className="hover:text-[var(--color-accent)] transition-colors transition-transform hover:scale-110"><FaGithub size={22} /></a>
+                            <a href="#" className="hover:text-[var(--color-accent)] transition-colors transition-transform hover:scale-110"><FaLinkedin size={22} /></a>
+                        </div>
+                        <span className="w-12 h-[1px] bg-gray-700 block"></span>
+                        <span className="text-xs font-mono text-[var(--color-accent)]">AVAILABLE FOR HIRE</span>
                     </div>
                 </div>
 
-                {/* CENTER COLUMN: IMAGE */}
-                <div className="relative z-20 flex-1 h-[50%] md:h-full flex flex-col justify-end items-center relative order-2 md:order-2">
+                {/* CENTER: IMAGE (Product-First Presentation) */}
+                <div className="relative z-20 flex-1 h-[50%] md:h-[110%] w-full flex justify-center items-end order-1 md:order-2 pointer-events-none">
+                    {/* Circle Graphic Behind */}
+                    <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[450px] md:h-[450px] border border-white/5 rounded-full" />
 
-                    {/* Tech Circle Behind Head */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[60%] border border-purple-500/20 rounded-full animate-[spin_20s_linear_infinite]" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[50%] border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
-
-                    {/* Main Image */}
                     <img
                         ref={centerImageRef}
                         src={profileImage}
                         alt="Salman Faris"
-                        fetchPriority="high"
-                        loading="eager"
-                        className="relative z-10 w-auto h-[100%] md:h-[90%] object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]"
+                        className="relative z-10 h-[100%] md:h-[90%] w-auto object-contain drop-shadow-[0_10px_40px_rgba(0,0,0,0.5)] grayscale-[20%] contrast-[110%] transition-all duration-700 pointer-events-auto"
                         style={{
                             maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
                             WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
                         }}
                     />
 
-                    {/* Floating Icons */}
-                    <div className="absolute inset-0 pointer-events-none z-20">
-                        <FaReact className="tech-icon absolute top-[30%] left-[10%] md:left-[20%] text-3xl md:text-4xl text-blue-400/80 animate-bounce" style={{ animationDuration: '3s' }} />
-                        <FaPython className="tech-icon absolute top-[25%] right-[10%] md:right-[25%] text-3xl md:text-4xl text-yellow-300/80 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }} />
-                        <SiDjango className="tech-icon absolute bottom-[30%] left-[15%] md:left-[25%] text-2xl md:text-3xl text-green-500/80 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }} />
+                    {/* Floating Tech Icons (Micro-Interactions) */}
+                    <div className="absolute inset-0 pointer-events-none z-30">
+                        <FaReact className="tech-icon absolute top-[20%] left-[20%] md:left-[25%] text-2xl md:text-3xl text-gray-600 opacity-60" />
+                        <SiDjango className="tech-icon absolute top-[30%] right-[20%] md:right-[25%] text-2xl md:text-3xl text-gray-600 opacity-60" />
+                        <SiJavascript className="tech-icon absolute bottom-[40%] left-[10%] md:left-[20%] text-xl md:text-2xl text-gray-600 opacity-60" />
                     </div>
-
-
                 </div>
 
-                {/* RIGHT COLUMN: 'FARIS' */}
-                <div ref={splitTextRightRef} className="relative z-10 flex flex-col justify-start md:justify-center items-center md:items-end w-full md:w-[30%] h-[20%] md:h-full pb-8 md:pb-0 md:pr-12 lg:pr-20 space-y-2 md:space-y-4 order-3 md:order-3">
-                    <p className="tech-decoration text-xs text-right text-gray-500 tracking-[0.3em] font-sans font-medium mb-1 md:mb-4 hidden md:block">DEV_MODE: ACTIVE</p>
-                    <h1 className="tech-text-right text-5xl sm:text-6xl lg:text-8xl font-black text-white/90 tracking-tighter leading-none text-center md:text-right">
-                        FAR
+                {/* RIGHT CONTENT: "Visual Momentum" CTA */}
+                <div className="relative z-10 flex flex-col items-center md:items-end text-center md:text-right md:w-1/3 order-3 space-y-6 flex">
+                    {/* FARIS: Desktop Only now */}
+                    <h1
+                        className="hero-text hidden md:block text-5xl sm:text-7xl lg:text-9xl font-black text-transparent tracking-tighter leading-[0.9] md:leading-[0.8] select-none z-20 transition-all duration-500 hover:text-white whitespace-nowrap md:whitespace-normal"
+                        style={{ WebkitTextStroke: "1px rgba(255,255,255,0.5)" }}
+                    >
+                        FAR<span className="md:hidden">IS</span>
                         <br className="hidden md:block" />
-                        <span className="md:hidden"> </span>
-                        IS
+                        <span className="hidden md:inline">IS</span>
                     </h1>
-                    <div className="tech-text-right mt-2 md:mt-8 flex flex-col items-end gap-2">
-                        <div className="flex gap-4 text-gray-400">
-                            <a href="#" className="hover:text-purple-400 transition-colors"><FaGithub size={20} /></a>
-                            <a href="#" className="hover:text-purple-400 transition-colors"><FaLinkedin size={20} /></a>
-                        </div>
+                    <div className="hero-text flex flex-col items-center md:items-end gap-4">
+                        {/* VIEW WORK BUTTON - Glassmorphism */}
+                        <MagneticButton className="group relative bg-white/5 backdrop-blur-md border border-white/10 hover:border-[var(--color-accent)] text-white px-8 py-4 rounded-full text-xs font-bold tracking-widest transition-all duration-500 overflow-hidden flex items-center gap-3 pointer-events-auto">
+                            <div className="absolute inset-0 bg-[var(--color-accent)] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+                            <span className="group-hover:text-[var(--color-accent)] transition-colors">VIEW WORK</span>
+                            <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] group-hover:shadow-[0_0_15px_var(--color-accent)] transition-all"></span>
+                        </MagneticButton>
+
+                        {/* DOWNLOAD CV BUTTON */}
+                        <a
+                            href="/resume.pdf"
+                            download="Salman_Faris_CV.pdf"
+                            className="group flex items-center gap-3 text-gray-400 hover:text-white transition-colors pointer-events-auto text-xs tracking-widest font-bold px-4 py-2"
+                        >
+                            <span className="group-hover:text-[var(--color-accent)] transition-colors">DOWNLOAD CV</span>
+                            <FaDownload className="text-gray-500 group-hover:text-[var(--color-accent)] transition-colors transform group-hover:translate-y-1 duration-300" />
+                        </a>
                     </div>
                 </div>
+            </div>
 
-                {/* GLOBAL VIEW PROJECTS BUTTON (Bottom Center) */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 slide-up-fade w-max">
-                    <MagneticButton className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 md:px-8 py-2 md:py-3 rounded-full text-xs md:text-sm font-sans tracking-widest hover:bg-white hover:text-black transition-all shadow-[0_0_20px_rgba(168,85,247,0.2)]">
-                        VIEW PROJECTS
-                    </MagneticButton>
-                </div>
-
+            {/* VISUAL MOMENTUM HINT (Scroll Down) */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-pulse">
+                <span className="text-[10px] uppercase tracking-widest text-gray-500">Scroll</span>
+                <div className="w-[1px] h-8 bg-gradient-to-b from-transparent via-gray-500 to-transparent"></div>
             </div>
         </section>
     );
