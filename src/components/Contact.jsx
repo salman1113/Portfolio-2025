@@ -22,13 +22,6 @@ const Contact = () => {
     const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    // Debugging: Check if keys are loaded
-    console.log("EmailJS Params:", {
-      serviceID: SERVICE_ID ? "Loaded" : "Missing",
-      templateID: TEMPLATE_ID ? "Loaded" : "Missing",
-      publicKey: PUBLIC_KEY ? "Loaded" : "Missing",
-    });
-
     emailjs
       .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, {
         publicKey: PUBLIC_KEY,
