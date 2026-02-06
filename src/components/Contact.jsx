@@ -16,16 +16,22 @@ const Contact = () => {
     // RESOURCE: https://www.emailjs.com/docs/examples/reactjs/
     // You need to replace these with your actual IDs from EmailJS dashboard
     // Service ID, Template ID, Public Key
-    // Resource: https://www.emailjs.com/docs/examples/reactjs/
     // Service ID, Template ID, Public Key (Stored in .env)
     const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID; // Auto-Reply to User
+    const ADMIN_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID; // Notification to You
     const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    emailjs
-      .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, {
-        publicKey: PUBLIC_KEY,
-      })
+    // Send both emails in parallel
+    const sendAdminNotification = emailjs.sendForm(SERVICE_ID, ADMIN_TEMPLATE_ID, form.current, {
+      publicKey: PUBLIC_KEY,
+    });
+
+    const sendUserAutoReply = emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, {
+      publicKey: PUBLIC_KEY,
+    });
+
+    Promise.all([sendAdminNotification, sendUserAutoReply])
       .then(
         () => {
           toast.success('Message sent! I will get back to you soon.', {
@@ -50,7 +56,7 @@ const Contact = () => {
               border: '1px solid red',
             }
           });
-          console.error('FAILED...', error.text);
+          console.error('FAILED...', error);
           setIsSubmitting(false);
         },
       );
