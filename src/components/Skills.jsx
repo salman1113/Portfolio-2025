@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollFloat from './ScrollFloat';
@@ -64,7 +64,13 @@ const Skills = () => {
     },
   ];
 
-  const [isMobile, setIsMobile] = React.useState(false);
+  // Calculate initial mobile state safely to avoid layout shift on mount
+  const [isMobile, setIsMobile] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -73,7 +79,7 @@ const Skills = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       ScrollTrigger.refresh();
 
@@ -102,7 +108,7 @@ const Skills = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <section id="skills" ref={containerRef} className="relative bg-black text-white overflow-hidden overscroll-none">

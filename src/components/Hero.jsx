@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MagneticButton from "./MagneticButton";
 import { FaGithub, FaLinkedin, FaInstagram, FaReact, FaPython, FaDownload } from "react-icons/fa";
 import { SiJavascript, SiTailwindcss, SiDjango } from "react-icons/si";
-import profileImage from "../assets/myimage.jpg";
+import profileImage from "../assets/myimage.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -151,6 +151,8 @@ const Hero = () => {
                         ref={centerImageRef}
                         src={profileImage}
                         alt="Salman Faris"
+                        width="800"
+                        height="1000"
                         loading="eager"
                         fetchPriority="high"
                         className="relative z-10 h-[100%] md:h-[90%] w-auto object-contain drop-shadow-[0_10px_40px_rgba(0,0,0,0.5)] grayscale-[20%] contrast-[110%] transition-all duration-700 pointer-events-auto"

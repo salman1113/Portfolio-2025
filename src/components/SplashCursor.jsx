@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 function SplashCursor({
     SIM_RESOLUTION = 128,
@@ -18,10 +18,19 @@ function SplashCursor({
 }) {
     const canvasRef = useRef(null);
 
+    // Initialize mobile state safely (checking both width and pointer)
+    const [isMobile, setIsMobile] = React.useState(() => {
+        if (typeof window !== 'undefined') {
+            return window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
+        }
+        return false;
+    });
+
     useEffect(() => {
-        // DISABLE ON MOBILE: Check if primary input is touch
-        const isTouch = window.matchMedia("(pointer: coarse)").matches;
-        if (isTouch) return;
+        if (isMobile) return;
+
+
+
 
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -1049,6 +1058,8 @@ function SplashCursor({
         BACK_COLOR,
         TRANSPARENT
     ]);
+
+    if (isMobile) return null;
 
     return (
         <div className="fixed top-0 left-0 z-50 pointer-events-none w-full h-full">

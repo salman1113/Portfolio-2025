@@ -5,8 +5,9 @@ import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import SkeletonLoader from "./SkeletonLoader";
 
 // Import project images (User to provided assets)
-import echoBayImg from "../assets/echobay.png";
-import courseImg from "../assets/coursestore.jpg";
+// Import project images (User to provided assets)
+import echoBayImg from "../assets/echobay.webp";
+import courseImg from "../assets/coursestore.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,7 +37,7 @@ const projects = [
     image: courseImg,
     description: "Formulated a scalable LMS backend supporting 500+ concurrent users. Enforced robust RBAC via JWT for Admins, Instructors, and Students. Secured video delivery with Signed URLs and optimized Django filtering to reduce API payload size by 50%.",
     tech: ["Django", "PostgreSQL", "RBAC", "Docker", "Stripe"],
-    links: { github:"https://github.com/salman1113/Learnest-AI-Backend.git", live: "#" }
+    links: { github: "https://github.com/salman1113/Learnest-AI-Backend.git", live: "#" }
   },
 ];
 
@@ -89,6 +90,8 @@ const ProjectCard = ({ project, index }) => {
             <img
               src={project.image}
               alt={project.title}
+              width="800"
+              height="450"
               onLoad={() => setImageLoaded(true)}
               className={`w-full h-full object-cover transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'} group-hover:scale-105 transition-transform duration-700`}
             />
