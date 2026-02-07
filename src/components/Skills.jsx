@@ -111,7 +111,7 @@ const Skills = () => {
 
                 <div className="relative z-10 transform hover:scale-105 transition-transform duration-500 w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
                   <Folder
-                    size={isMobile ? 2.5 : 3.5}
+                    size={isMobile ? 1.8 : 3.5}
                     color={cat.color}
                     items={cat.skills.map((skill, idx) => (
                       <div key={idx} className="flex flex-col items-center justify-center h-full w-full p-1 text-center group-hover:scale-110 transition-transform">

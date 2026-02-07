@@ -102,7 +102,7 @@ const Hero = () => {
             {/* MAIN HERO CARD (Reduced Height for 6-second rule) */}
             <div
                 ref={cardRef}
-                className="relative w-[95%] max-w-[90rem] h-[65vh] md:h-[70vh] bg-[#121212] rounded-[2rem] border border-white/5 overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between p-6 md:p-12 transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(57,255,20,0.1)]"
+                className="relative w-[95%] max-w-[90rem] min-h-[65vh] h-auto md:h-[70vh] bg-[#121212] rounded-[2rem] border border-white/5 overflow-hidden shadow-2xl flex flex-col md:flex-row items-center justify-between p-6 md:p-12 transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(57,255,20,0.1)]"
             >
                 {/* Subtle Grid Pattern */}
                 <div className="absolute inset-0 pointer-events-none opacity-10"
