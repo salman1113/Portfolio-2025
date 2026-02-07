@@ -85,15 +85,15 @@ const Skills = () => {
 
       const sections = gsap.utils.toArray(".skill-card");
 
-      gsap.to(sections, {
-        xPercent: -100 * (sections.length - 1),
+      gsap.to(wrapperRef.current, {
+        xPercent: -100 * (skillCategories.length - 1) / skillCategories.length,
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
           scrub: 1, // Smoother scrubbing
           snap: {
-            snapTo: 1 / (sections.length - 1),
+            snapTo: 1 / (skillCategories.length - 1),
             duration: { min: 0.2, max: 0.3 },
             delay: 0,
             ease: "power1.inOut"
