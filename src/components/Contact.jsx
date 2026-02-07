@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FaPaperPlane, FaEnvelope, FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
-import ScrollFloat from './ScrollFloat';
+
 
 const Contact = () => {
   const form = useRef();
@@ -22,6 +22,8 @@ const Contact = () => {
     const ADMIN_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID; // Notification to You
     const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+
+
     // Send both emails in parallel
     const sendAdminNotification = emailjs.sendForm(SERVICE_ID, ADMIN_TEMPLATE_ID, form.current, {
       publicKey: PUBLIC_KEY,
@@ -35,12 +37,12 @@ const Contact = () => {
       .then((results) => {
         const [adminResult, userResult] = results;
 
-        // Log failures for debugging
+        // Log failures for debugging (Sanitized)
         if (adminResult.status === 'rejected') {
-          console.error('FAILED to send Admin Notification:', adminResult.reason);
+          console.error('FAILED to send Admin Notification');
         }
         if (userResult.status === 'rejected') {
-          console.error('FAILED to send User Auto-Reply:', userResult.reason);
+          console.error('FAILED to send User Auto-Reply');
         }
 
         // Success Condition: At least the Admin Notification must succeed (or both)

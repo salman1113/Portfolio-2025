@@ -10,7 +10,6 @@ import { BiLogoPostgresql } from "react-icons/bi";
 gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
-  const customPostgre = BiLogoPostgresql || SiPostgresql;
 
   // Calculate initial mobile state safely
   const [isMobile, setIsMobile] = useState(() => {
