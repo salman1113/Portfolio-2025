@@ -150,11 +150,11 @@ const Projects = () => {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--color-accent)] opacity-[0.03] blur-[150px] pointer-events-none rounded-full" />
 
       <div className="container mx-auto px-6">
-        <div className="mb-24 md:mb-32">
-          <h2 className="text-6xl md:text-8xl font-black text-white/5 tracking-tighter absolute left-4 select-none pointer-events-none">
+        <div className="mb-24 md:mb-32 text-center relative">
+          <h2 className="text-6xl md:text-9xl font-black text-white/5 tracking-tighter absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-full select-none pointer-events-none">
             WORK
           </h2>
-          <h2 className="text-4xl md:text-5xl font-bold text-white relative z-10 pl-4 md:pl-12 border-l-4 border-[var(--color-accent)]">
+          <h2 className="text-4xl md:text-6xl font-black text-white relative z-10 font-display uppercase tracking-widest">
             Selected <br /> Projects
           </h2>
         </div>

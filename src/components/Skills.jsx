@@ -1,7 +1,6 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ScrollFloat from './ScrollFloat';
 import Folder from './Folder';
 import { FaReact, FaPython, FaGitAlt, FaGithub, FaDatabase, FaCode } from 'react-icons/fa';
 import { SiRedux, SiTailwindcss, SiDjango, SiPostgresql, SiPostman, SiDocker, SiBootstrap } from 'react-icons/si';
@@ -11,9 +10,21 @@ import { BiLogoPostgresql } from "react-icons/bi";
 gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
-  const containerRef = useRef(null);
-  const wrapperRef = useRef(null);
   const customPostgre = BiLogoPostgresql || SiPostgresql;
+
+  // Calculate initial mobile state safely
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const skillCategories = [
     {
@@ -64,106 +75,81 @@ const Skills = () => {
     },
   ];
 
-  // Calculate initial mobile state safely to avoid layout shift on mount
-  const [isMobile, setIsMobile] = React.useState(() => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < 768;
-    }
-    return false;
-  });
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize(); // Initial check
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.refresh();
 
-      const sections = gsap.utils.toArray(".skill-card");
-
-      gsap.to(wrapperRef.current, {
-        xPercent: -100 * (skillCategories.length - 1) / skillCategories.length,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 1, // Smoother scrubbing
-          snap: {
-            snapTo: 1 / (skillCategories.length - 1),
-            duration: { min: 0.2, max: 0.3 },
-            delay: 0,
-            ease: "power1.inOut"
-          },
-          start: "top top",
-          end: () => "+=" + wrapperRef.current.offsetWidth,
-          invalidateOnRefresh: true,
-          anticipatePin: 1, // Helps prevents jitter on start
-        },
-      });
-
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [isMobile]);
 
   return (
-    <section id="skills" ref={containerRef} className="relative bg-black text-white overflow-hidden overscroll-none">
+    <section id="skills" className="relative bg-black text-white py-24 overflow-hidden">
 
-      <div
-        ref={wrapperRef}
-        className="flex h-[100dvh] items-center overflow-x-hidden min-h-[100dvh]"
-        style={{ width: `${skillCategories.length * 100}%` }}
-      >
-        {/* Fixed Heading Mobile Adjustments - Moved down to avoid Navbar overlap */}
-        <div className="absolute top-32 md:top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none w-full text-center">
-          <h2 className="text-2xl md:text-3xl font-bold font-display uppercase tracking-widest text-white">Skills & <br className="md:hidden" />Capabilities</h2>
+      <div className="container mx-auto px-6">
+
+        {/* Section Header */}
+        <div className="mb-20 text-center">
+          <h2 className="text-4xl md:text-6xl font-black font-display uppercase tracking-tighter mb-4 text-white">
+            Skills & <br className="md:hidden" /> Capabilities
+          </h2>
+          <p className="text-gray-400 max-w-2xl text-lg mx-auto">
+            A comprehensive look at the technologies and tools I use to build scalable, high-performance applications.
+          </p>
         </div>
 
-        {skillCategories.map((cat) => (
-          <div key={cat.id} className="skill-card w-screen h-[100dvh] flex flex-col items-center justify-center p-4 md:p-10 flex-shrink-0 border-r border-gray-900/50 relative">
-
-            {/* Background Glow */}
+        {/* Vertical Stack of Skill Categories */}
+        <div className="flex flex-col gap-16 md:gap-32">
+          {skillCategories.map((cat, index) => (
             <div
-              className="absolute inset-0 opacity-10 blur-[100px] pointer-events-none"
-              style={{ backgroundColor: cat.color }}
-            />
+              key={cat.id}
+              className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-10 md:gap-20 items-center justify-center w-full`}
+            >
 
-            <div className="relative z-10 flex flex-col items-center gap-4 md:gap-12 w-full px-4 mt-12 md:mt-0">
-
-              {/* FOLDER COMPONENT */}
-              <div className="relative h-[250px] md:h-[300px] flex items-end justify-center w-full">
-                <Folder
-                  size={isMobile ? 2 : 3} // Dynamic sizing based on listener
-                  color={cat.color}
-                  items={cat.skills.map((skill, idx) => (
-                    <div key={idx} className="flex flex-col items-center justify-center h-full w-full p-1 text-center group-hover:scale-105 transition-transform">
-                      <skill.icon className="text-2xl md:text-4xl mb-1" style={{ color: skill.color }} />
-                      <span className="text-[9px] md:text-xs font-bold text-gray-200 leading-tight break-words px-1">{skill.name}</span>
-                    </div>
-                  ))}
+              {/* Folder/Visual Side */}
+              <div className="w-full md:w-1/2 flex justify-center relative">
+                {/* Background Glow for Folder */}
+                <div
+                  className="absolute inset-0 opacity-20 blur-[80px] pointer-events-none transform scale-75"
+                  style={{ backgroundColor: cat.color }}
                 />
+
+                <div className="relative z-10 transform hover:scale-105 transition-transform duration-500 w-full max-w-[400px] aspect-[4/3] flex items-center justify-center">
+                  <Folder
+                    size={isMobile ? 2.5 : 3.5}
+                    color={cat.color}
+                    items={cat.skills.map((skill, idx) => (
+                      <div key={idx} className="flex flex-col items-center justify-center h-full w-full p-1 text-center group-hover:scale-110 transition-transform">
+                        <skill.icon className="text-3xl md:text-4xl mb-2" style={{ color: skill.color }} />
+                        <span className="text-[10px] md:text-xs font-bold text-gray-200 leading-tight px-1">{skill.name}</span>
+                      </div>
+                    ))}
+                  />
+                </div>
               </div>
 
-              {/* TITLE & DESCRIPTION */}
-              <div className="text-center space-y-2 md:space-y-4 relative z-20 mt-4 md:mt-0">
-                <h3 className="text-4xl sm:text-6xl md:text-8xl font-black font-display tracking-tighter" style={{ color: cat.color }}>
+              {/* Text Side */}
+              <div className="w-full md:w-1/2 text-center md:text-left space-y-6">
+                <h3 className="text-4xl md:text-6xl font-black font-display tracking-tight" style={{ color: cat.color }}>
                   {cat.name}
                 </h3>
-                <p className="text-gray-400 text-xs sm:text-sm md:text-lg max-w-[280px] sm:max-w-md mx-auto leading-relaxed">
-                  {cat.name === "Frontend" && "Building responsive, interactive interfaces."}
-                  {cat.name === "Backend" && "Powering robust, scalable server logic."}
-                  {cat.name === "Database" && "Designing efficient, reliable data stores."}
-                  {cat.name === "DevOps" && "Streamlining deployment & workflows."}
+                <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-md mx-auto md:mx-0">
+                  {cat.name === "Frontend" && "Crafting responsive, pixel-perfect, and interactive user interfaces using modern React ecosystems."}
+                  {cat.name === "Backend" && "Architecting robust, scalable server-side logic and secure APIs with Python and Django."}
+                  {cat.name === "Database" && "Designing efficient data schemas and optimizing queries for high-performance data persistence."}
+                  {cat.name === "Cloud & DevOps" && "Streamlining deployment pipelines and managing cloud infrastructure for 99.9% uptime."}
                 </p>
+
+                {/* Skill Tags List */}
+                <div className="flex flex-wrap gap-2 justify-center md:justify-start pt-4">
+                  {cat.skills.map((skill, i) => (
+                    <span key={i} className="px-3 py-1 text-xs md:text-sm border border-white/10 rounded-full text-gray-300 bg-white/5">
+                      {skill.name}
+                    </span>
+                  ))}
+                </div>
               </div>
 
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
       </div>
     </section>
   );
