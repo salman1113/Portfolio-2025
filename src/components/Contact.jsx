@@ -31,9 +31,21 @@ const Contact = () => {
       publicKey: PUBLIC_KEY,
     });
 
-    Promise.all([sendAdminNotification, sendUserAutoReply])
-      .then(
-        () => {
+    Promise.allSettled([sendAdminNotification, sendUserAutoReply])
+      .then((results) => {
+        const [adminResult, userResult] = results;
+
+        // Log failures for debugging
+        if (adminResult.status === 'rejected') {
+          console.error('FAILED to send Admin Notification:', adminResult.reason);
+        }
+        if (userResult.status === 'rejected') {
+          console.error('FAILED to send User Auto-Reply:', userResult.reason);
+        }
+
+        // Success Condition: At least the Admin Notification must succeed (or both)
+        // If Admin fails, it's a critical failure for the owner.
+        if (adminResult.status === 'fulfilled') {
           toast.success('Message sent! I will get back to you soon.', {
             style: {
               background: '#333',
@@ -45,21 +57,19 @@ const Contact = () => {
               secondary: '#000',
             },
           });
-          e.target.reset(); // Reset form manually
-          setIsSubmitting(false);
-        },
-        (error) => {
-          toast.error('Failed to send message. Please try again.', {
+          e.target.reset();
+        } else {
+          // Admin notification failed (even if auto-reply worked)
+          toast.error('Failed to send message. Please check console for details.', {
             style: {
               background: '#333',
               color: '#fff',
               border: '1px solid red',
             }
           });
-          console.error('FAILED...', error);
-          setIsSubmitting(false);
-        },
-      );
+        }
+        setIsSubmitting(false);
+      });
   };
 
   const contactInfo = [
