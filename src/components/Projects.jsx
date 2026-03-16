@@ -14,12 +14,12 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
   {
     id: 1,
-    title: "Data Insights Agent",
-    category: "AI Analytics Platform",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
-    description: "Spearheaded an AI-powered analytics platform using FastAPI and React 19. Enables non-technical users to query datasets via natural language (LLM), reducing manual analysis time by 90%. Architecture includes high-performance Pandas pipelines and automated PDF reporting (Jinja2).",
-    tech: ["FastAPI", "React 19", "LLM Integration", "Pandas", "Recharts"],
-    links: { github: "#", live: "#" }
+    title: "Hair Ways",
+    category: "AI Salon & Virtual Stylist",
+    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1000",
+    description: "Architected a hybrid backend using FastAPI & Django, managed via Dockerized microservices. Built a virtual stylist engine leveraging OpenCV & MediaPipe for facial landmark mapping (95% accuracy). Developed a RAG recommendation system using LangChain & FAISS.",
+    tech: ["FastAPI", "Django", "OpenCV", "MediaPipe", "LangChain"],
+    links: { github: "https://github.com/salman1113/Hair-Ways-App.git", live: "https://hairways.in/" }
   },
   {
     id: 2,

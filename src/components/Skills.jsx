@@ -33,25 +33,37 @@ const Skills = () => {
       skills: [
         { name: "Python", icon: FaPython, color: "#FFD43B" },
         { name: "Django", icon: SiDjango, color: "#092E20" },
-        { name: "DRF", icon: SiDjango, color: "#A30000" },
-        { name: "Celery", icon: FaDatabase, color: "#37814A" }, // Placeholder Icon
-        { name: "REST APIs", icon: FaCode, color: "#FFFFFF" },
+        { name: "FastAPI", icon: FaCode, color: "#009688" },
+        { name: "Celery", icon: FaDatabase, color: "#37814A" },
+        { name: "WebSocket", icon: FaCode, color: "#FFFFFF" },
       ],
     },
     {
       id: 2,
-      name: "Frontend",
-      color: "#a855f7", // Purple
+      name: "AI & Vision",
+      color: "#ec4899", // Pink
       skills: [
-        { name: "React.js", icon: FaReact, color: "#61DAFB" },
-        { name: "Redux", icon: SiRedux, color: "#764ABC" },
-        { name: "Tailwind", icon: SiTailwindcss, color: "#38B2AC" },
-        { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
-        { name: "Axios", icon: FaCode, color: "#5A29E4" },
+        { name: "LangChain", icon: FaCode, color: "#1C3C3C" },
+        { name: "FAISS", icon: FaDatabase, color: "#3b82f6" },
+        { name: "OpenCV", icon: FaCode, color: "#5C3EE8" },
+        { name: "MediaPipe", icon: FaCode, color: "#01A2E8" },
+        { name: "LLMs", icon: FaDatabase, color: "#FFFFFF" },
       ],
     },
     {
       id: 3,
+      name: "Frontend",
+      color: "#a855f7", // Purple
+      skills: [
+        { name: "React 19", icon: FaReact, color: "#61DAFB" },
+        { name: "Redux", icon: SiRedux, color: "#764ABC" },
+        { name: "Tailwind", icon: SiTailwindcss, color: "#38B2AC" },
+        { name: "Framer", icon: FaCode, color: "#e2e8f0" },
+        { name: "Axios", icon: FaCode, color: "#5A29E4" },
+      ],
+    },
+    {
+      id: 4,
       name: "Database",
       color: "#3b82f6", // Blue
       skills: [
@@ -61,15 +73,15 @@ const Skills = () => {
       ],
     },
     {
-      id: 4,
+      id: 5,
       name: "Cloud & DevOps",
       color: "#f97316", // Orange
       skills: [
         { name: "AWS", icon: FaCode, color: "#FF9900" },
         { name: "Docker", icon: SiDocker, color: "#2496ED" },
-        { name: "Git", icon: FaGitAlt, color: "#F05032" },
-        { name: "Vercel", icon: VscVscode, color: "#000000" }, // Use placeholder
-        { name: "CI/CD", icon: FaGithub, color: "#FFFFFF" },
+        { name: "GitActions", icon: FaGithub, color: "#FFFFFF" },
+        { name: "Nginx", icon: FaCode, color: "#009639" },
+        { name: "Vercel", icon: VscVscode, color: "#000000" },
       ],
     },
   ];
@@ -131,6 +143,7 @@ const Skills = () => {
                 <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-md mx-auto md:mx-0">
                   {cat.name === "Frontend" && "Crafting responsive, pixel-perfect, and interactive user interfaces using modern React ecosystems."}
                   {cat.name === "Backend" && "Architecting robust, scalable server-side logic and secure APIs with Python and Django."}
+                  {cat.name === "AI & Vision" && "Integrating LLMs, Vector Search (FAISS), and Computer Vision into production environments."}
                   {cat.name === "Database" && "Designing efficient data schemas and optimizing queries for high-performance data persistence."}
                   {cat.name === "Cloud & DevOps" && "Streamlining deployment pipelines and managing cloud infrastructure for 99.9% uptime."}
                 </p>

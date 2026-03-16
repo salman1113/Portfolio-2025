@@ -79,7 +79,7 @@ const About = () => {
 
                     <div className="reveal-item border-l-2 border-[var(--color-accent)] pl-6 md:pl-10 py-2">
                         <VariableProximity
-                            label="I am a developer from Calicut who bridges the gap between interactive Frontend and powerful Backend. Currently an Intern at Bridgeon Solutions, I specialize in building scalable web applications using the Python-React ecosystem. I believe in code that feels alive."
+                            label="I am a Full Stack Python Developer from Calicut, Kerala, specializing in building scalable web applications, real-time backend services, and AI-driven microservices. Currently a Developer at Bridgeon Solutions LLP, I seamlessly integrate powerful backends with interactive modern frontends. I believe in code that feels alive."
                             className="text-lg md:text-2xl leading-relaxed text-gray-400 hover:text-gray-200 transition-colors cursor-default"
                             fromFontVariationSettings="'wght' 400, 'opsz' 9"
                             toFontVariationSettings="'wght' 500, 'opsz' 40"

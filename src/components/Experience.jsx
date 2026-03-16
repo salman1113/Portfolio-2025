@@ -34,16 +34,16 @@ const Experience = () => {
 
     const experiences = [
         {
-            company: "Bridgeon Solutions",
+            company: "Bridgeon Solutions LLP",
             role: "Python Full Stack Developer",
             period: "2025 – Present",
-            description: "Orchestrated 15+ REST APIs using Django & DRF, cutting service response time by 25%. Crafted 12+ responsive UI modules with React.js/Redux, reducing bugs by 30%. specialized in secure JWT role-based authentication and optimizing heavy database queries (1.5s to <600ms).",
+            description: "Engineered backend services with Django & FastAPI, reducing API latency by 30%. Built responsive UI components using React 19 & Tailwind CSS, improving load speeds by 25%. Integrated Google OAuth 2.0 & SimpleJWT for authentication, managing 1,500+ users. Containerized applications via Docker, automating CI/CD pipelines to accelerate deployment by 50%.",
         },
         {
-            company: "Nochad Higher Secondary",
-            role: "Higher Secondary Education",
+            company: "Nochad Higher Secondary School, Calicut",
+            role: "Higher Secondary Education (Commerce)",
             period: "2023 – 2025",
-            description: "Specialized in Commerce with Computer Application. Built a strong foundation in programming logic and business workflows, graduating with top honors.",
+            description: "Specialized in Commerce. Built a strong foundation in programming logic and business workflows.",
         },
     ];
 
@@ -76,7 +76,7 @@ const Experience = () => {
                         <div key={index} className="experience-card relative grid md:grid-cols-2 gap-8 md:gap-16 items-start group">
 
                             {/* COMPANY WATERMARK (Bridgeon) */}
-                            {exp.company === "Bridgeon Solutions" && (
+                            {exp.company === "Bridgeon Solutions LLP" && (
                                 <div className="absolute top-0 right-0 md:-right-12 text-[rgba(255,255,255,0.02)] font-black text-6xl md:text-9xl uppercase tracking-tighter pointer-events-none select-none z-0 flex items-start justify-end gap-4 transition-all duration-500 group-hover:text-[rgba(56,189,248,0.06)] group-hover:-translate-y-2">
                                     {/* Simulated Logo Mark (Large Background) */}
                                     <div className="w-24 h-24 md:w-40 md:h-40 bg-blue-600/5 rounded-2xl flex items-center justify-center -skew-x-12 absolute -top-10 -right-10 md:-top-16 md:-right-16 blur-2xl opacity-50"></div>

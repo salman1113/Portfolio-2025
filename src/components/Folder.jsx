@@ -67,12 +67,12 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }) => 
     const scaleStyle = { transform: `scale(${size})` };
 
     const getOpenTransform = (index, total) => {
-        if (total <= 1) return 'translate(0%, -90%) rotate(0deg)';
+        if (total <= 1) return 'translate(-50%, -90%) rotate(0deg)';
 
         const centerIndex = (total - 1) / 2;
         const dist = index - centerIndex;
 
-        const x = dist * 60; // Spread x
+        const x = dist * 50 - 50; // Spread x minus the 50% from left-1/2 centering
         const y = -100 + Math.abs(dist) * 15; // Arc y (center higher)
         const rot = dist * 10; // Fanning rotation
 
