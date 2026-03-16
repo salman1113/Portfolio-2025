@@ -192,7 +192,7 @@ const Hero = () => {
                         {/* DOWNLOAD CV BUTTON */}
                         <a
                             href="/resume.pdf"
-                            download="Salman_Faris_CV.pdf"
+                            download="Salman_Fullstack_Resume.pdf"
                             className="group flex items-center gap-3 text-gray-400 hover:text-white transition-colors pointer-events-auto text-xs tracking-widest font-bold px-4 py-2"
                         >
                             <span className="group-hover:text-[var(--color-accent)] transition-colors">DOWNLOAD CV</span>
