@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiHome, FiUser, FiCompass, FiMail, FiTerminal, FiFolder } from 'react-icons/fi';
+import { FiHome, FiUser, FiCompass, FiBook, FiMail, FiTerminal, FiFolder } from 'react-icons/fi';
 
 const NavBar = () => {
     const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -10,6 +10,7 @@ const NavBar = () => {
         { name: 'Home', icon: FiHome, url: '#home' },
         { name: 'About', icon: FiUser, url: '#about' },
         { name: 'Experience', icon: FiCompass, url: '#experience' },
+        { name: 'Education', icon: FiBook, url: '#education' },
         { name: 'Skills', icon: FiTerminal, url: '#skills' },
         { name: 'Projects', icon: FiFolder, url: '#projects' },
         { name: 'Contact', icon: FiMail, url: '#contact' },

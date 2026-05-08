@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 const Hero = React.lazy(() => import('./components/Hero'));
 const About = React.lazy(() => import('./components/About'));
 const Experience = React.lazy(() => import('./components/Experience'));
+const Education = React.lazy(() => import('./components/Education'));
 const Skills = React.lazy(() => import('./components/Skills'));
 const Projects = React.lazy(() => import('./components/Projects'));
 const Contact = React.lazy(() => import('./components/Contact'));
@@ -37,6 +38,7 @@ function App() {
           <Hero />
           <About />
           <Experience />
+          <Education />
           <Skills />
           <Projects />
           <Contact />

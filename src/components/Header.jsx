@@ -34,6 +34,7 @@ const Header = () => {
     { name: "Home", target: "#home" },
     { name: "About", target: "#about" },
     { name: "Experience", target: "#experience" },
+    { name: "Education", target: "#education" },
     { name: "Skills", target: "#skills" },
     { name: "Projects", target: "#projects" },
     { name: "Contact", target: "#contact" },
